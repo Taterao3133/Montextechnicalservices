@@ -20,9 +20,9 @@ const qualityPoints = [
 ];
 
 const stats = [
-  ["users", "500+", "Happy Clients"],
-  ["building", "1000+", "Projects Completed"],
-  ["worker", "50+", "Skilled Professionals"],
+  ["users", "200+", "Happy Clients"],
+  ["building", "220+", "Projects Completed"],
+  ["worker", "20+", "Skilled Professionals"],
   ["shield", "100%", "Satisfaction Guarantee"]
 ];
 
@@ -69,7 +69,7 @@ export default function Home() {
               </div>
               <div className="experience">
                 <Icon name="shield" />
-                <strong>15+</strong>
+                <strong>5+</strong>
                 <span>Years of Experience</span>
               </div>
             </div>
@@ -141,7 +141,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="license section" id="certificates">
+        {/* <section className="license section" id="certificates">
           <div className="container licenseGrid">
             <div className="sectionCopy">
               <p className="label"><Icon name="shield" /> Certificates</p>
@@ -155,10 +155,10 @@ export default function Home() {
               </ul>
             </div>
             <a className="licenseProof" href="/assets/trade-license.jpg" aria-label="Open trade license image">
-              <Image src="/assets/trade-license.jpg" alt="Dubai Economy and Tourism license activities document for Montex" width={900} height={1639} />
+              <Image src="/assets/trade-license.jpg" alt="Dubai Economy and Tourism license activities document for Montex" width={900} height={1639} /> 
             </a>
           </div>
-        </section>
+        </section> */}
 
         <section className="contact section" id="contact">
           <div className="container contactGrid">
@@ -168,7 +168,7 @@ export default function Home() {
               <p style={{color:'#e9c260'}}>Send your requirement and our team will respond with the right technical service solution.</p>
               <div className="contactLines">
                 <a href="tel:+971525322481">+971 52 532 2481</a>
-                <a href="mailto:info@montex.ae">jaganmalyala1983@gmail.com</a>
+                <a href="mailto:montextechenicals9@gmail.com">montextechenicals9@gmail.com</a>
                 <span>Dubai, United Arab Emirates</span>
               </div>
             </div>
@@ -194,6 +194,7 @@ export default function Home() {
       <footer className="footer">
         <div className="container footerInner">
           <Image src="/assets/logo.jpg" alt="Montex Technical Services L.L.C" width={180} height={43} />
+          <p><span style={{ color: "#e9c260", fontWeight: "700" ,fontSize:"16px" }}>Address : </span> 101, BMI building, near Sharaf DG Metro Station Bur Dubai.</p>
           <p>© 2026 Montex Technical Services L.L.C. All Rights Reserved.</p>
         </div>
       </footer>

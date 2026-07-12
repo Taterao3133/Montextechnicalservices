@@ -68,18 +68,18 @@ export default function Hero({ services }) {
             </div>
           </div>
         </div>
-
-        <div className={styles.floatingActions} aria-label="Quick contact">
-          <a className={styles.whatsapp} href="https://wa.me/971525322481" aria-label="Chat with Montex on WhatsApp">
-            <Icon name="chat" />
-            <span>WhatsApp</span>
-          </a>
-          <a className={styles.call} href="tel:+971525322481" aria-label="Call Montex Technical Services">
-            <Icon name="phone" />
-            <span>Call Us</span>
-          </a>
-        </div>
       </section>
+
+      <div className={styles.floatingActions} aria-label="Quick contact">
+        <a className={styles.whatsapp} href="https://wa.me/+971524269939" aria-label="Chat with Montex on WhatsApp">
+          <Icon name="chat" />
+          <span>WhatsApp</span>
+        </a>
+        <a className={styles.call} href="tel:+971524269939" aria-label="Call Montex Technical Services">
+          <Icon name="phone" />
+          <span>Call Us</span>
+        </a>
+      </div>
 
       <section className={styles.serviceFloat} id="services" aria-label="Main services">
         <div className={`container ${styles.serviceGrid}`}>

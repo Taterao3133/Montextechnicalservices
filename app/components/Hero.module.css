@@ -209,11 +209,11 @@
 
 .floatingActions {
   position: fixed;
-  z-index: 40;
   right: 18px;
-  top: 350px;
+  top: clamp(140px, 34vh, 350px);
   display: grid;
   gap: 12px;
+  z-index: 2147483000;
 }
 
 .floatingActions a {
