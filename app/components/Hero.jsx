@@ -45,7 +45,7 @@ export default function Hero({ services }) {
             </p>
 
             <div className={styles.actions} aria-label="Hero actions">
-              <a className={`${styles.button} ${styles.primary}`} href="#contact">
+              <a className={`${styles.button} ${styles.primary}`} href="https://wa.me/+971524269939">
                 Request a Free Quote
                 <span aria-hidden="true">→</span>
               </a>
