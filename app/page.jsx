@@ -168,7 +168,7 @@ export default function Home() {
               <p style={{color:'#e9c260'}}>Send your requirement and our team will respond with the right technical service solution.</p>
               <div className="contactLines">
                 <a href="tel:+971525322481">+971 52 532 2481</a>
-                <a href="mailto:montextechenicals9@gmail.com">montextechenicals9@gmail.com</a>
+                <a href="mailto:montextechnicals9@gmail.com">montextechnicals9@gmail.com</a>
                 <span>Dubai, United Arab Emirates</span>
               </div>
             </div>

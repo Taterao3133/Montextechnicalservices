@@ -62,7 +62,7 @@ export default function Hero({ services }) {
                 ))}
               </div>
               <div>
-                <strong>Trusted by 500+ Clients</strong>
+                <strong>Trusted by 200+ Clients</strong>
                 <span>Dubai & Across UAE</span>
               </div>
             </div>
