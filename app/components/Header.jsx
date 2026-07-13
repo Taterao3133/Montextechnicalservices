@@ -22,7 +22,8 @@ export default function Header() {
           <div className="topbarLeft">
             <span>Dubai, UAE</span>
             <span>Mon - Sat 8:00 AM - 6:00 PM</span>
-            <span>+971524269939</span>
+            <span>+9 71524269939</span> 
+            <span>+9 7143595835</span> 
             <a href="montextechnicals9@gmail.com">montextechnicals9@gmail.com</a>
           </div>
           <div className="topbarRight">
