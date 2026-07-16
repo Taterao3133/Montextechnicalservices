@@ -112,6 +112,7 @@ img {
 }
 
 .navbarInner {
+  position: relative;
   min-height: 74px;
   justify-content: space-between;
   gap: 28px;
@@ -1361,8 +1362,8 @@ img {
   .navLinks {
     position: absolute;
     top: 72px;
-    right: 22px;
-    left: 22px;
+    right: 0;
+    left: 0;
     display: none;
     padding: 14px;
     background: #fff;
@@ -1380,35 +1381,68 @@ img {
     padding: 12px;
   }
 
+  .servicesNav {
+    width: 100%;
+  }
+
   .servicesTrigger {
     width: 100%;
     justify-content: space-between;
     padding: 12px;
+    color: var(--ink);
+    border-radius: 5px;
+  }
+
+  .servicesNav.isExpanded .servicesTrigger {
+    color: var(--gold);
+    background: var(--wash);
   }
 
   .megaDropdown {
     position: static;
     display: none;
     width: 100%;
+    max-height: min(58vh, 440px);
+    margin: 0 0 8px;
     padding: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     opacity: 1;
     pointer-events: auto;
     transform: none;
+    -webkit-overflow-scrolling: touch;
   }
 
   .servicesNav.isExpanded .megaDropdown {
     display: block;
+    transform: none;
   }
 
   .megaGrid {
     grid-template-columns: 1fr;
-    margin: 6px 0 8px;
+    gap: 8px;
+    margin: 4px 0 0;
     padding: 10px;
+    background: var(--wash);
+    border-radius: 6px;
     box-shadow: none;
   }
 
   .megaGroup {
     min-height: auto;
+    padding: 12px;
+    background: #fff;
+    border-radius: 6px;
+  }
+
+  .megaGroup h3 {
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+
+  .megaGroup a {
+    padding: 8px 0;
+    font-size: 13px;
   }
 
   .navLinks .active::after {
