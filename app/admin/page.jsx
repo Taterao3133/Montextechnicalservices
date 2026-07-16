@@ -50,7 +50,7 @@ export default async function AdminPage({ searchParams }) {
       <main className="adminPage">
         <section className="simpleHero">
           <div className="container">
-            <p className="label arrow">Admin Panel</p>
+            <p className="label arrow"></p>
             <h1>Dashboard</h1>
             <p>Manage company information, services, projects, gallery content and quote activity.</p>
           </div>
