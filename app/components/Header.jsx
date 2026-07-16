@@ -56,7 +56,7 @@ export default function Header({ admin = false, company = fallbackCompany }) {
         <div className="container navbarInner">
           <a className="brand" href={admin ? "/admin" : "/#home"} aria-label="Montex home">
             <Image src="/assets/logo.jpg" alt="Montex Technical Services L.L.C" width={251} height={60} priority />
-            {admin ? <span className="adminBrandTitle">Admin Panel</span> : null}
+            {admin ? <span className="adminBrandTitle"></span> : null}
           </a>
 
           <button
