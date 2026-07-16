@@ -1,0 +1,55 @@
+{
+  "company": {
+    "name": "Montex Technical Services L.L.C",
+    "phone": "+97143595835",
+    "whatsapp": "+971524269939",
+    "email": "montextechnicals9@gmail.com",
+    "address": "101, BMI building, near Sharaf DG Metro Station Bur Dubai.",
+    "hours": "Mon - Sat 8:00 AM - 6:00 PM",
+    "maps": "",
+    "instagram": "",
+    "linkedin": ""
+  },
+  "galleryItems": [
+    {
+      "title": "Villa - Technical Maintenance",
+      "category": "Maintenance",
+      "image": "project-house.jpg"
+    },
+    {
+      "title": "Villa - Air Conditioning",
+      "category": "Air Conditioning",
+      "image": "quality-ac.jpg"
+    },
+    {
+      "title": "Commercial - Electrical Works",
+      "category": "Electrical",
+      "image": "quality-electrical.jpg"
+    },
+    {
+      "title": "Residential - Plumbing Works",
+      "category": "Plumbing",
+      "image": "quality-plumbing.jpg"
+    },
+    {
+      "title": "Villa - Painting Project",
+      "category": "Painting",
+      "image": "project-paint-work.jpg"
+    },
+    {
+      "title": "Gypsum Ceiling Work",
+      "category": "Gypsum",
+      "image": "project-ceiling-work.jpg"
+    },
+    {
+      "title": "Building Cleaning Support",
+      "category": "Cleaning",
+      "image": "project-house.jpg"
+    },
+    {
+      "title": "AMC Property Visit",
+      "category": "AMC",
+      "image": "quality-electrical.jpg"
+    }
+  ]
+}

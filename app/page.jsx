@@ -2,14 +2,16 @@ import Image from "next/image";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import { Icon } from "./components/Icons";
+import { projects, services } from "./data/siteData";
+import { getContent } from "./lib/content";
 
-const services = [
-  ["ac", "Air Conditioning", "Installation, Repair & Maintenance"],
-  ["electric", "Electrical Works", "All Types of Electrical Installation & Repair"],
-  ["plumbing", "Plumbing & Sanitary", "Plumbing, Fixtures & Pipe Works"],
-  ["paint", "Painting Services", "Interior & Exterior Painting"],
-  ["ceiling", "False Ceiling & Gypsum", "Gypsum, POP & False Ceiling Works"],
-  ["cleaning", "Building Cleaning", "Professional Cleaning Services"]
+const homeServices = [
+  { ...services.find((service) => service.slug === "ac-installation"), title: "Air Conditioning" },
+  { ...services.find((service) => service.slug === "electrical-installation"), title: "Electrical Works" },
+  { ...services.find((service) => service.slug === "plumbing-services"), title: "Plumbing & Sanitary" },
+  { icon: "paint", title: "Painting Services", slug: "painting-services", href: "/#contact", excerpt: "Interior & Exterior Painting" },
+  services.find((service) => service.slug === "false-ceiling-gypsum"),
+  services.find((service) => service.slug === "building-cleaning")
 ];
 
 const qualityPoints = [
@@ -37,13 +39,19 @@ const licenseActivities = [
   "Painting Contracting"
 ];
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home({ searchParams }) {
+  const { company } = await getContent();
+  const params = await searchParams;
+  const contactStatus = params?.contact;
+
   return (
     <>
-      <Header />
+      <Header company={company} />
 
       <main id="home">
-        <Hero services={services} />
+        <Hero services={homeServices} />
 
         <section className="quality section">
           <div className="container qualityGrid">
@@ -123,43 +131,19 @@ export default function Home() {
               <p className="label arrow">Our Projects</p>
               <h2>Recent Technical Work</h2>
             </div>
-            <a className="outlineLink" href="#contact">View All Projects <span>→</span></a>
+            <a className="outlineLink" href="/gallery">View All Projects <span>→</span></a>
           </div>
           <div className="container projectGrid">
-            {[
-              ["project-house.jpg", "Villa - Technical Maintenance"],
-              ["quality-ac.jpg", "Villa - Air Conditioning"],
-              ["quality-electrical.jpg", "Commercial - Electrical Works"],
-              ["quality-plumbing.jpg", "Residential - Plumbing Works"],
-              ["project-paint-work.jpg", "Villa - Painting Project"]
-            ].map(([src, title]) => (
-              <article key={title}>
-                <Image src={`/assets/${src}`} alt={title} width={344} height={190} />
-                <h3>{title}</h3>
+            {projects.map((project) => (
+              <article key={project.slug}>
+                <a href={`/projects/${project.slug}`} aria-label={`View ${project.title} project`}>
+                  <Image src={`/assets/${project.image}`} alt={project.title} width={344} height={190} />
+                  <h3>{project.title}</h3>
+                </a>
               </article>
             ))}
           </div>
         </section>
-
-        {/* <section className="license section" id="certificates">
-          <div className="container licenseGrid">
-            <div className="sectionCopy">
-              <p className="label"><Icon name="shield" /> Certificates</p>
-              <h2>Government Registered Technical Services</h2>
-              <p>
-                Montex is listed for active license activities covering installation, maintenance,
-                finishing and cleaning services in Dubai.
-              </p>
-              <ul className="activityList">
-                {licenseActivities.map((item) => <li key={item}>{item}</li>)}
-              </ul>
-            </div>
-            <a className="licenseProof" href="/assets/trade-license.jpg" aria-label="Open trade license image">
-              <Image src="/assets/trade-license.jpg" alt="Dubai Economy and Tourism license activities document for Montex" width={900} height={1639} /> 
-            </a>
-          </div>
-        </section> */}
-
         <section className="contact section" id="contact">
           <div className="container contactGrid">
             <div className="sectionCopy">
@@ -168,23 +152,27 @@ export default function Home() {
               <p style={{color:'#e9c260'}}>Send your requirement and our team will respond with the right technical service solution.</p>
               <div className="contactLines">
                 <div className="contaLines_inner">
-                 <a href="tel:+97143595835">+9 7143595835</a> , <a href="tel:+971524269939">+9 71524269939</a>
+                 <a href={`tel:${company.phone}`}>{company.phone}</a> , <a href={`tel:${company.whatsapp}`}>{company.whatsapp}</a>
                 </div>
                 
                 
-                <a href="mailto:montextechnicals9@gmail.com">montextechnicals9@gmail.com</a>
+                <a href={`mailto:${company.email}`}>{company.email}</a>
                 <span>Dubai, United Arab Emirates</span>
               </div>
             </div>
 
-            <form className="quoteForm" action="mailto:info@montex.ae" method="post" encType="text/plain">
+            <form className="quoteForm" action="/api/contact" method="post">
+              {contactStatus === "sent" ? <p className="formNotice">Thank you. Your enquiry has been received.</p> : null}
+              {contactStatus === "invalid" ? <p className="formNotice error">Please check the form details and try again.</p> : null}
+              {contactStatus === "limited" ? <p className="formNotice error">Too many enquiries were sent. Please try again later.</p> : null}
+              <label className="formTrap">Website<input name="website" type="text" tabIndex="-1" autoComplete="off" /></label>
               <label>Name<input name="name" type="text" autoComplete="name" required /></label>
               <label>Phone<input name="phone" type="tel" autoComplete="tel" required /></label>
               <label>
                 Service
                 <select name="service" required defaultValue="">
                   <option value="" disabled>Select service</option>
-                  {services.map(([, title]) => <option key={title}>{title}</option>)}
+                  {services.map((service) => <option key={service.title}>{service.title}</option>)}
                   <option>Other Technical Service</option>
                 </select>
               </label>
@@ -198,7 +186,7 @@ export default function Home() {
       <footer className="footer">
         <div className="container footerInner">
           <Image src="/assets/logo.jpg" alt="Montex Technical Services L.L.C" width={180} height={43} />
-          <p><span style={{ color: "#e9c260", fontWeight: "700" ,fontSize:"16px" }}>Address : </span> 101, BMI building, near Sharaf DG Metro Station Bur Dubai.</p>
+          <p><span style={{ color: "#e9c260", fontWeight: "700" ,fontSize:"16px" }}>Address : </span> {company.address}</p>
           <p>© 2026 Montex Technical Services L.L.C. All Rights Reserved.</p>
         </div>
       </footer>

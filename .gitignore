@@ -2,3 +2,7 @@
 out
 node_modules
 .DS_Store
+.env
+.env*.local
+app/data/contactSubmissions.json
+public/uploads/

@@ -83,11 +83,16 @@ export default function Hero({ services }) {
 
       <section className={styles.serviceFloat} id="services" aria-label="Main services">
         <div className={`container ${styles.serviceGrid}`}>
-          {services.map(([icon, title]) => (
-            <a className={styles.serviceCard} href="#contact" key={title} aria-label={`Request ${title} service`}>
-              <Icon name={icon} />
-              <h3>{serviceLabels[title]?.[0] ?? title}</h3>
-              <p>{serviceLabels[title]?.[1] ?? "Professional technical service"}</p>
+          {services.map((service) => (
+            <a
+              className={styles.serviceCard}
+              href={service.href ?? `/services/${service.slug}`}
+              key={service.title}
+              aria-label={`View ${service.title} service`}
+            >
+              <Icon name={service.icon} />
+              <h3>{serviceLabels[service.title]?.[0] ?? service.title}</h3>
+              <p>{serviceLabels[service.title]?.[1] ?? service.excerpt ?? "Professional technical service"}</p>
             </a>
           ))}
         </div>

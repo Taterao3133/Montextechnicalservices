@@ -308,10 +308,19 @@
   stroke-width: 1.9;
 }
 
-.serviceCard span {
+.serviceCard h3 {
+  margin: 0;
   font-size: 15px;
   font-weight: 850;
   line-height: 1.25;
+}
+
+.serviceCard p {
+  margin: 2px 0 0;
+  color: rgba(7, 26, 51, .68);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.35;
 }
 
 @keyframes contentIn {
