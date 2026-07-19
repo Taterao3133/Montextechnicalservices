@@ -165,6 +165,7 @@ export default async function Home({ searchParams }) {
               {contactStatus === "sent" ? <p className="formNotice">Thank you. Your enquiry has been received.</p> : null}
               {contactStatus === "invalid" ? <p className="formNotice error">Please check the form details and try again.</p> : null}
               {contactStatus === "limited" ? <p className="formNotice error">Too many enquiries were sent. Please try again later.</p> : null}
+              {contactStatus === "email" ? <p className="formNotice error">Email delivery is not configured yet. Please call or WhatsApp us directly.</p> : null}
               <label className="formTrap">Website<input name="website" type="text" tabIndex="-1" autoComplete="off" /></label>
               <label>Name<input name="name" type="text" autoComplete="name" required /></label>
               <label>Phone<input name="phone" type="tel" autoComplete="tel" required /></label>

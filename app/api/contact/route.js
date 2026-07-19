@@ -1,9 +1,13 @@
 import { promises as fs } from "fs";
+import os from "os";
 import path from "path";
 import { NextResponse } from "next/server";
-import { services } from "../../data/siteData";
+import { company as fallbackCompany, services } from "../../data/siteData";
+
+export const runtime = "nodejs";
 
 const SUBMISSIONS_PATH = path.join(process.cwd(), "app", "data", "contactSubmissions.json");
+const FALLBACK_SUBMISSIONS_PATH = path.join(os.tmpdir(), "montex-contactSubmissions.json");
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX = 5;
 const submissionsByIp = new Map();
@@ -11,6 +15,15 @@ const allowedServices = new Set([...services.map((service) => service.title), "O
 
 function clean(value, maxLength) {
   return String(value ?? "").replace(/\s+/g, " ").trim().slice(0, maxLength);
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
 function getIp(request) {
@@ -40,19 +53,78 @@ function isSameOrigin(request) {
   return origin === new URL(request.url).origin;
 }
 
-async function saveSubmission(submission) {
-  await fs.mkdir(path.dirname(SUBMISSIONS_PATH), { recursive: true });
+async function writeSubmission(filePath, submission) {
+  await fs.mkdir(path.dirname(filePath), { recursive: true });
 
   let existing = [];
 
   try {
-    existing = JSON.parse(await fs.readFile(SUBMISSIONS_PATH, "utf8"));
+    existing = JSON.parse(await fs.readFile(filePath, "utf8"));
   } catch {
     existing = [];
   }
 
   existing.push(submission);
-  await fs.writeFile(SUBMISSIONS_PATH, `${JSON.stringify(existing.slice(-500), null, 2)}\n`, "utf8");
+  await fs.writeFile(filePath, `${JSON.stringify(existing.slice(-500), null, 2)}\n`, "utf8");
+}
+
+async function saveSubmission(submission) {
+  try {
+    await writeSubmission(SUBMISSIONS_PATH, submission);
+  } catch (error) {
+    console.error("Unable to save contact submission in app data directory.", error);
+    await writeSubmission(FALLBACK_SUBMISSIONS_PATH, submission);
+  }
+}
+
+async function sendSubmissionEmail(submission) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const to = process.env.CONTACT_TO_EMAIL || fallbackCompany.email;
+  const from = process.env.CONTACT_FROM_EMAIL || "Montex Technical Services <onboarding@resend.dev>";
+
+  if (!apiKey || !to || !from) {
+    throw new Error("Contact email is not configured. Set RESEND_API_KEY, CONTACT_TO_EMAIL and CONTACT_FROM_EMAIL.");
+  }
+
+  const html = `
+    <h2>New Montex enquiry</h2>
+    <p><strong>Name:</strong> ${escapeHtml(submission.name)}</p>
+    <p><strong>Phone:</strong> ${escapeHtml(submission.phone)}</p>
+    <p><strong>Service:</strong> ${escapeHtml(submission.service)}</p>
+    <p><strong>Submitted:</strong> ${escapeHtml(submission.createdAt)}</p>
+    <p><strong>Message:</strong></p>
+    <p>${escapeHtml(submission.message).replaceAll("\n", "<br>")}</p>
+  `;
+  const text = [
+    "New Montex enquiry",
+    `Name: ${submission.name}`,
+    `Phone: ${submission.phone}`,
+    `Service: ${submission.service}`,
+    `Submitted: ${submission.createdAt}`,
+    "",
+    submission.message
+  ].join("\n");
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+      "User-Agent": "montex-website"
+    },
+    body: JSON.stringify({
+      from,
+      to,
+      subject: `New enquiry: ${submission.service}`,
+      text,
+      html
+    })
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.text().catch(() => "");
+    throw new Error(`Email provider rejected contact submission. Status: ${response.status}. ${errorBody}`);
+  }
 }
 
 export async function POST(request) {
@@ -86,6 +158,13 @@ export async function POST(request) {
   }
 
   await saveSubmission(submission);
+
+  try {
+    await sendSubmissionEmail(submission);
+  } catch (error) {
+    console.error("Unable to send contact submission email.", error);
+    return NextResponse.redirect(new URL("/?contact=email#contact", request.url), 303);
+  }
 
   return NextResponse.redirect(new URL("/?contact=sent#contact", request.url), 303);
 }
