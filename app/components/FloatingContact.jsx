@@ -11,9 +11,6 @@ export default async function FloatingContact() {
         <Icon name="chat" />
         <span>WhatsApp</span>
       </a>
-   
-        <Icon name="phone" />
-        <span>Call Us</span>
 
     </div>
   );
