@@ -22,7 +22,7 @@ export default async function ContactSection({ title = "Request a Free Quote", s
           </div>
           <div className="contactActions">
             <a className="btn btnGold" href={`https://wa.me/${company.whatsapp.replace("+", "")}`}>WhatsApp <span>→</span></a>
-            <a className="btn btnLight" href={`tel:${company.whatsapp}`}>Call Now <span>→</span></a>
+            <a className="btn btnLight" href={`tel:${company.phone}`}>Call Now <span>→</span></a>
           </div>
         </div>
 
