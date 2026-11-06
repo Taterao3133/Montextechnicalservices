@@ -14,7 +14,7 @@ export default async function FloatingContact() {
    
         <Icon name="phone" />
         <span>Call Us</span>
-      </a>
+
     </div>
   );
 }
