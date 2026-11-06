@@ -70,7 +70,7 @@ export default async function ProjectPage({ params }) {
           <div className="container sectionHead">
             <div>
               <p className="label arrow">Project Images</p>
-              <h2>Site Highlights</h2>
+              <h2>Site Highlights :</h2>
             </div>
           </div>
           <div className="container galleryGrid compact">

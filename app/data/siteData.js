@@ -273,6 +273,6 @@ export const company = {
   phone: "+97143570086",
   whatsapp: "+971524269939",
   email: "info@montexservicesdubai.com",
-  address: "206,BMI Building, Near Sharf Dg Metro Station, Bar Dubai, Dubai. UAE",
-  hours: "Mon - Sat 8:00 AM - 6:00 PM"
+  address: "206,BMI Building, Near Sharf Dg Metro Station, Bar Dubai, Dubai.- UAE",
+  hours: "Mon - Sat 8:00 AM - 6:00 PM "
 };
