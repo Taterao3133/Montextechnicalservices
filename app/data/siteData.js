@@ -270,9 +270,9 @@ export const galleryItems = [
 
 export const company = {
   name: "Montex Technical Services L.L.C",
-  phone: "+97143595835",
+  phone: "+97143570086",
   whatsapp: "+971524269939",
-  email: "montextechnicals9@gmail.com",
-  address: "101, BMI building, near Sharaf DG Metro Station Bur Dubai.",
+  email: "info@montexservicesdubai.com",
+  address: "206,BMI Building, Near Sharf Dg Metro Station, Bar Dubai, Dubai. UAE",
   hours: "Mon - Sat 8:00 AM - 6:00 PM"
 };
