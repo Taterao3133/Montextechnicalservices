@@ -11,6 +11,10 @@ export default async function FloatingContact() {
         <Icon name="chat" />
         <span>WhatsApp</span>
       </a>
+      <a className={styles.call} href={`tel:${company.phone}`} aria-label="Call Montex Technical Services">
+  <Icon name="phone" />
+  <span>Call Us</span>
+</a>
 
     </div>
   );
